@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="flex items-center justify-between h-8" @click="onClick">
+  <div class="text-sm md:text-base">
+    <div class="flex h-8 items-center justify-between" @click="onClick">
       <DotSeparatedList>
         <DotSeparatedListItem>
           <UserWithTooltip :username="by" @click.stop></UserWithTooltip> ({{ karma }})
