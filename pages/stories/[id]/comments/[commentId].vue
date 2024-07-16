@@ -12,7 +12,7 @@
     ></Story>
 
     <section class="flex flex-col w-full items-center sm:px-0 gap-y-4 py-4 bg-neutral-50 dark:bg-neutral-900">
-      <div class="flex flex-wrap gap-x-4 gap-y-2 px-2 sm:px-0 w-full sm:w-3/4 max-w-[1200px] xl:1/2">
+      <div class="flex flex-wrap gap-x-4 gap-y-2 px-4 sm:px-0 w-full sm:w-3/4 max-w-[1200px] xl:1/2">
         <ULink :to="`/stories/${story.hnId}`" class="flex items-center">
           <UIcon name="i-mdi-arrow-left" class="mr-2"></UIcon>
           Go to story
