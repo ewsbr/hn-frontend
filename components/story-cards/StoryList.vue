@@ -1,16 +1,16 @@
 <template>
-  <section class="flex justify-center w-full py-6 px-2">
-    <div class="w-full sm:w-3/4 max-w-[1200px]">
+  <section class="flex w-full justify-center bg-neutral-50 px-2 py-6 dark:bg-neutral-900">
+    <div class="w-full max-w-[1200px] sm:w-3/4">
       <ul ref="scroll" class="flex flex-col gap-1">
 
-        <li v-if="pending" v-for="index in 30" :key="index" class="flex flex-col">
+        <li v-if="status === 'pending'" v-for="index in 30" :key="index" class="flex flex-col">
           <StorySkeleton :index="index"></StorySkeleton>
         </li>
 
-        <li v-else v-for="(story, index) in stories2" :key="story.id" class="flex flex-col">
+        <li v-else v-for="(story, index) in stories" :key="story.id" class="flex flex-col">
           <div class="relative">
             <span
-              class="absolute sm:block hidden font-black top-3"
+              class="absolute top-3 hidden font-black sm:block"
               :class="{
                 '-left-6': index + 1 <= 9,
                 '-left-8': index + 1 > 9
@@ -18,11 +18,11 @@
             >{{ index + 1 }}.</span>
 
             <div
-              class="flex justify-between bg-gray-100 dark:bg-neutral-800 border-blue-100/50 dark:border-blue-100/20 border-2 p-2 rounded-lg"
+              class="flex justify-between rounded-lg border-2 border-blue-100/50 bg-gray-100 p-2 dark:border-blue-100/20 dark:bg-neutral-800"
             >
               <div class="flex gap-2">
-                <div class="flex flex-col justify-center items-center">
-                  <UIcon name="i-heroicons-arrow-up-circle" class="h-5 w-5 inline-block"/>
+                <div class="flex flex-col items-center justify-center">
+                  <UIcon name="i-heroicons-arrow-up-circle" class="inline-block h-5 w-5"/>
                   <span class="text-sm">{{ story.score }}</span>
                 </div>
 
@@ -36,10 +36,10 @@
                 <UButton
                   variant="ghost"
                   size="sm"
-                  class="flex flex-col font-bold h-fit text-neutral-800 dark:text-neutral-200"
+                  class="flex h-fit flex-col font-bold text-neutral-800 dark:text-neutral-200"
                   :to="`/stories/${story.id}`"
                 >
-                  <UIcon name="i-mdi-message-reply-text" class="h-6 w-6 block"/>
+                  <UIcon name="i-mdi-message-reply-text" class="block h-6 w-6"/>
                   {{ story.descendants }}
                 </UButton>
               </div>
@@ -65,36 +65,24 @@ const route = useRoute();
 
 const PAGE_SIZE = 30;
 
-const page = computed({
-  get: () => route.query.page ? parseInt(route.query.page as string) : 1,
-  set: (value: number) => {
-    navigateTo({
-      query: {
-        ...route.query,
-        page: value,
-      },
-      replace: true
-    })
-  }
-});
-const { data: stories2, pending } = await useLazyAsyncData('stories', async () => {
+const page = ref(1);
+const { data: stories, status } = await useLazyAsyncData('stories', async () => {
   return await internalApiFetch<any>(`/stories/${props.storyType}`);
 })
 
 const scroll = ref<HTMLElement>();
 useInfiniteScroll(document, async () => {
-  if (stories2.value == null) return;
+  if (stories.value == null) return;
 
   page.value++;
-
-  const stories = await internalApiFetch<any>(`/stories/${props.storyType}`, {
+  const storiesResult = await internalApiFetch<any>(`/stories/${props.storyType}`, {
     query: {
       page: page.value,
       limit: PAGE_SIZE
     }
   });
 
-  stories2.value.push(...stories);
+  stories.value.push(...storiesResult);
 }, {
   distance: 196,
   direction: 'bottom',
