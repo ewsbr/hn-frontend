@@ -49,6 +49,10 @@ const open = ref(false);
 const usernameLink = ref<HTMLElement | null>(null);
 
 async function loadUser() {
+  if (typeof screen.orientation !== 'undefined') {
+    return;
+  }
+
   user.value = await $fetch(`https://hacker-news.firebaseio.com/v0/user/${props.username}.json`);
   open.value = false;
   await nextTick();
