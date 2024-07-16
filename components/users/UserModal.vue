@@ -1,5 +1,5 @@
 <template>
-  <UModal :ui="{ wrapper: 'pa-6', width: 'sm:max-w-fit max-w-full w-fit' }" prevent-close>
+  <UModal :ui="{ wrapper: 'pa-6', width: 'sm:max-w-fit max-w-full w-fit' }">
     <UCard>
       <template #header>
         <div class="flex justify-between">

@@ -3,7 +3,7 @@
     <div class="flex h-8 items-center justify-between" @click="onClick">
       <DotSeparatedList>
         <DotSeparatedListItem>
-          <UserWithTooltip :username="by" @click.stop></UserWithTooltip> ({{ karma }})
+          <UserWithTooltip :username="by"></UserWithTooltip> ({{ karma }})
         </DotSeparatedListItem>
         <DotSeparatedListItem>
           <StoryTime :story-id="storyId" :comment-id="id" :time="time" @click.stop></StoryTime>

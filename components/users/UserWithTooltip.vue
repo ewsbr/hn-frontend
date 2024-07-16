@@ -2,10 +2,16 @@
   <UPopover
     v-model:open="open"
     mode="hover"
+    :disabled="isMobile"
     :ui="{ wrapper: 'inline-flex' }"
     :popper="{ placement: 'top-end', offsetDistance: 2 }"
   >
-    <a ref="usernameLink" :href="`/users/${username}`" class="text-anchor animate-underline" @mouseover.once="loadUser" @click="onClick">
+    <a
+      ref="usernameLink"
+      :href="`/users/${username}`"
+      class="text-anchor animate-underline"
+      @mouseover.once="loadUser"
+      @click.prevent="onClick">
       {{ username }}
     </a>
 
@@ -19,13 +25,19 @@
             <span v-html="about" class="overflow-ellipsis line-clamp-4 md:line-clamp-6 lg:line-clamp-none mb-4"></span>
 
             <p class="!my-1">
-              <span class="font-medium text-neutral-800 dark:text-neutral-100">Created: </span><span>{{ created }}</span>
+              <span class="font-medium text-neutral-800 dark:text-neutral-100">Created: </span><span>{{
+                created
+              }}</span>
             </p>
             <p class="!my-1">
-              <span class="font-medium text-neutral-800 dark:text-neutral-100">Karma: </span><span>{{ user.karma }}</span>
+              <span class="font-medium text-neutral-800 dark:text-neutral-100">Karma: </span><span>{{
+                user.karma
+              }}</span>
             </p>
             <p class="!my-1">
-              <span class="font-medium text-neutral-800 dark:text-neutral-100">Submissions: </span><span>{{ user.submitted?.length }}</span>
+              <span class="font-medium text-neutral-800 dark:text-neutral-100">Submissions: </span><span>{{
+                user.submitted?.length
+              }}</span>
             </p>
           </section>
         </template>
@@ -37,27 +49,28 @@
 <script setup lang="ts">
 import { useTimeAgo, useDateFormat } from '@vueuse/core';
 import UserModal from '~/components/users/UserModal.vue';
+import { useTwBreakpoints } from '~/composables/breakpoints';
+import { useIgnoreHydration } from '~/composables/hydration';
 
 const props = defineProps<{
   username: string;
 }>();
 
 const modal = useModal();
+const breakpoints = useTwBreakpoints();
+
+const isMobile = useIgnoreHydration(breakpoints.smallerOrEqual('sm'), false);
 
 const user = ref<any>(null);
 const open = ref(false);
 const usernameLink = ref<HTMLElement | null>(null);
 
 async function loadUser() {
-  if (typeof screen.orientation !== 'undefined') {
-    return;
-  }
-
   user.value = await $fetch(`https://hacker-news.firebaseio.com/v0/user/${props.username}.json`);
   open.value = false;
   await nextTick();
   // I just wanted the popper instance :(
-  if (usernameLink.value?.matches(':hover')) {
+  if (usernameLink.value?.matches(':hover') && !isMobile.value) {
     open.value = true;
   }
 }
@@ -81,7 +94,8 @@ const about = computed(() => {
 
 async function onClick() {
   if (user.value == null) {
-    user.value = await $fetch(`https://hacker-news.firebaseio.com/v0/user/${props.username}.json`);;
+    user.value = await $fetch(`https://hacker-news.firebaseio.com/v0/user/${props.username}.json`);
+    ;
   }
 
   modal.open(UserModal, {
@@ -94,6 +108,6 @@ async function onClick() {
       open.value = false;
       modal.close();
     },
-  })
+  });
 }
 </script>
