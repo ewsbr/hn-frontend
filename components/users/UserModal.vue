@@ -2,7 +2,7 @@
   <UModal>
     <UCard>
       <div class="space-y-2">
-        <p>This modal was opened programmatically !</p>
+        <p>TODO</p>
       </div>
     </UCard>
   </UModal>

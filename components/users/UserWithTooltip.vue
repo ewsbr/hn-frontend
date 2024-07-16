@@ -10,19 +10,24 @@
     </a>
 
     <template #panel>
-      <div class="relative block font-semibold text-md p-4 max-w-sm">
+      <div class="relative block max-w-sm p-4 text-md">
         <span v-if="user == null">Loading...</span>
         <template v-else>
-          <span>Username: {{ user.id }}</span>
-          <br>
-          <span>Created: {{ created }}</span>
-          <br>
-          <span class="line-clamp-2 overflow-ellipsis">
-            About: {{ about }}
-          </span>
-          <span>Karma: {{ user.karma }}</span>
-          <br>
-          <span>Submissions: {{ user.submitted?.length }}</span>
+          <h1 class="text-xl font-bold text-primary">{{ user.id }}</h1>
+
+          <section class="text-neutral-600 dark:text-neutral-300">
+            <span v-html="about" class="overflow-ellipsis line-clamp-4 md:line-clamp-6 lg:line-clamp-none mb-4"></span>
+
+            <p class="!my-1">
+              <span class="font-medium text-neutral-800 dark:text-neutral-100">Created: </span><span>{{ created }}</span>
+            </p>
+            <p class="!my-1">
+              <span class="font-medium text-neutral-800 dark:text-neutral-100">Karma: </span><span>{{ user.karma }}</span>
+            </p>
+            <p class="!my-1">
+              <span class="font-medium text-neutral-800 dark:text-neutral-100">Submissions: </span><span>{{ user.submitted?.length }}</span>
+            </p>
+          </section>
         </template>
       </div>
     </template>
@@ -36,7 +41,7 @@ const props = defineProps<{
   username: string;
 }>();
 
-const user = ref(null);
+const user = ref<any>(null);
 const open = ref(false);
 const usernameLink = ref<HTMLElement | null>(null);
 
@@ -60,18 +65,10 @@ const created = computed(() => {
 });
 
 const about = computed(() => {
-  if (user.value == null) {
-    return '';
+  if (user.value?.about == null) {
+    return 'N/A';
   }
 
-  const doc = new DOMParser().parseFromString(user.value.about, 'text/html');
-  return doc.documentElement.textContent;
+  return user.value.about;
 });
 </script>
-
-<style>
-:deep(.no) {
-  pointer-events: none;
-  cursor: default;
-}
-</style>
