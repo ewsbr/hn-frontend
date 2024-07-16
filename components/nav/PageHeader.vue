@@ -1,23 +1,23 @@
 <template>
   <header
-    class="border-neutral-200 bg-white px-1 sm:px-4 shadow-md border-b-blue-400 border-b-[1px] dark:bg-neutral-800"
+    class="border-neutral-200 border-b-blue-400 bg-white px-1 shadow-md border-b-[1px] dark:bg-neutral-800 sm:px-4"
   >
     <UButton
       to="/settings"
       variant="ghost"
       icon="i-mdi-cog-outline"
-      class="fixed sm:hidden text-slate-800 dark:text-sky-50 bottom-0 right-0 m-4 p-2 z-50 !bg-neutral-500/20 dark:!bg-neutral-600/50"
+      class="fixed sm:hidden text-slate-800 dark:text-sky-50 bottom-4 right-4 p-2 z-50 !bg-neutral-500/20 dark:!bg-neutral-600/50"
     />
 
     <div class="mx-auto flex flex-wrap items-center justify-between">
       <div class="flex justify-center gap-x-4">
         <ProjectLogo class="hidden sm:flex" :ui="{ base: 'text-3xl', icon: 'h-9 w-9' }" />
         <UHorizontalNavigation :links="links" class="self-end" :ui="{
-          base: 'py-5'
+          base: 'py-5 px-2 sm:px-2.5',
         }"/>
       </div>
 
-      <div class="hidden sm:flex items-center gap-x-4 lg:order-2">
+      <div class="hidden items-center gap-x-4 sm:flex lg:order-2">
         <ClientOnly>
           <UTooltip
             class="hidden sm:block"
