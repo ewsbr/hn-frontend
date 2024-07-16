@@ -4,18 +4,23 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['@nuxt/ui', '@nuxt/fonts', 'nuxt-time'],
   css: ['~/assets/css/main.css'],
+
   ui: {
     icons: ['mdi', 'heroicons'],
   },
+
   devServer: {
     port: 3000,
     host: '0.0.0.0'
   },
+
   runtimeConfig: {
     public: {
       projectName: '',
       apiBase: '',
       basePath: ''
     }
-  }
+  },
+
+  compatibilityDate: '2024-07-15'
 })

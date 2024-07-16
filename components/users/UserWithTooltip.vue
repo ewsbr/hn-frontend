@@ -2,10 +2,10 @@
   <UPopover
     v-model:open="open"
     mode="hover"
-    :ui="{ wrapper: 'inline-flex', base: '[@media(pointer:coarse)]:!block' }"
+    :ui="{ wrapper: 'inline-flex' }"
     :popper="{ placement: 'top-end', offsetDistance: 2 }"
   >
-    <a ref="usernameLink" :href="`/users/${username}`" class="text-anchor animate-underline" @mouseover.once="loadUser">
+    <a ref="usernameLink" :href="`/users/${username}`" class="text-anchor animate-underline" @mouseover.once="loadUser" @click="onClick">
       {{ username }}
     </a>
 
@@ -36,10 +36,13 @@
 
 <script setup lang="ts">
 import { useTimeAgo, useDateFormat } from '@vueuse/core';
+import UserModal from '~/components/users/UserModal.vue';
 
 const props = defineProps<{
   username: string;
 }>();
+
+const modal = useModal();
 
 const user = ref<any>(null);
 const open = ref(false);
@@ -71,4 +74,22 @@ const about = computed(() => {
 
   return user.value.about;
 });
+
+async function onClick() {
+  if (user.value == null) {
+    user.value = await $fetch(`https://hacker-news.firebaseio.com/v0/user/${props.username}.json`);;
+  }
+
+  modal.open(UserModal, {
+    username: props.username,
+    about: about.value,
+    created: created.value,
+    karma: user.value?.karma,
+    submitted: user.value?.submitted,
+    onClose() {
+      open.value = false;
+      modal.close();
+    },
+  })
+}
 </script>

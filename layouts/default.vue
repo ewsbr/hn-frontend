@@ -21,6 +21,8 @@
         </template>
       </UNotifications>
     </ClientOnly>
+
+    <UModals />
   </div>
 </template>
 
