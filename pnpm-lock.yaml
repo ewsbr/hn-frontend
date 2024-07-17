@@ -42,6 +42,9 @@ importers:
       autoprefixer:
         specifier: ^10.4.19
         version: 10.4.19(postcss@8.4.39)
+      dotenv:
+        specifier: ^16.4.5
+        version: 16.4.5
       postcss:
         specifier: ^8.4.39
         version: 8.4.39
