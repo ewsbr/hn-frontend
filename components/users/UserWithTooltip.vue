@@ -95,7 +95,6 @@ const about = computed(() => {
 async function onClick() {
   if (user.value == null) {
     user.value = await $fetch(`https://hacker-news.firebaseio.com/v0/user/${props.username}.json`);
-    ;
   }
 
   modal.open(UserModal, {
@@ -104,10 +103,6 @@ async function onClick() {
     created: created.value,
     karma: user.value?.karma,
     submitted: user.value?.submitted,
-    onClose() {
-      open.value = false;
-      modal.close();
-    },
   });
 }
 </script>

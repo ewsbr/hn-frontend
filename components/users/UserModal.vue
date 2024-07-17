@@ -1,5 +1,5 @@
 <template>
-  <UModal :ui="{ wrapper: 'pa-6', width: 'sm:max-w-fit max-w-full w-fit' }">
+  <UModal v-model="isOpen" :ui="{ width: 'sm:max-w-[800px] max-w-full w-fit' }">
     <UCard>
       <template #header>
         <div class="flex justify-between">
@@ -9,8 +9,8 @@
             variant="ghost"
             icon="i-heroicons-x-mark-20-solid"
             class="-my-1"
-            @click="emit('close')"
-            @touchend="emit('close')"
+            @click="isOpen = false"
+            @touchend="emit('x')"
           />
         </div>
       </template>
@@ -32,7 +32,7 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{
+defineProps<{
   username: string;
   about?: string;
   created: string
@@ -41,14 +41,12 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  close: []
+  'x': []
 }>();
-defineShortcuts({
-  escape: {
-    usingInput: true,
-    handler: () => { emit('close') }
-  }
-})
+
+const isOpen = defineModel<boolean>({
+  default: false
+});
 </script>
 
 <style lang="scss">
