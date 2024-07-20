@@ -23,7 +23,7 @@
       </div>
     </div>
 
-    <section v-if="!isCollapsed" class="text-neutral-800 dark:text-neutral-200" v-html="text"></section>
+    <section v-if="!isCollapsed" class="text-neutral-800 comment-content dark:text-neutral-200" v-html="text"></section>
   </div>
 </template>
 
@@ -51,5 +51,9 @@ function onClick() {
 <style scoped lang="scss">
 :deep(p) {
   margin-top: 0.5rem;
+}
+
+:deep(.comment-content a) {
+  @apply font-medium underline decoration-gray-700;
 }
 </style>
