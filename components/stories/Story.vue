@@ -6,7 +6,7 @@
           <a :href="url" class="mr-2">{{ title }}</a>
         </h1>
         <a href="#" class="block text-md mb-2 text-gray-500 align-middle'">({{ hostname }})</a>
-        <p v-if="text != null">{{ text }}</p>
+        <p v-if="text != null" v-html="text" class="mb-4"></p>
 
         <DotSeparatedList hide-dots-on-mobile class="text-sm sm:text-base">
           <DotSeparatedListItem class="inline-flex gap-1 items-center">
@@ -44,3 +44,9 @@ const props = defineProps<{
 
 const hostname = useHostname(props.url);
 </script>
+
+<style scoped>
+:deep(p) {
+  margin-top: 0.5rem;
+}
+</style>
