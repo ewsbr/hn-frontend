@@ -3,7 +3,7 @@
     <div class="flex flex-col sm:flex-row justify-between w-full px-3 sm:px-0 sm:w-3/4 max-w-[1200px]">
       <div>
         <h1 class="text-2xl sm:text-3xl font-bold">
-          <a :href="url" class="mr-2">{{ title }}</a>
+          <a :href="url" :target="anchorTarget" class="mr-2">{{ title }}</a>
         </h1>
         <a href="#" class="block text-md mb-2 text-gray-500 align-middle'">({{ hostname }})</a>
         <p v-if="text != null" v-html="text" class="mb-4"></p>
@@ -30,6 +30,7 @@
 <script setup lang="ts">
 import StoryTime from '~/components/stories/StoryTime.vue';
 import UserWithTooltip from '~/components/users/UserWithTooltip.vue';
+import { useAnchorTarget } from '~/composables/settings';
 
 const props = defineProps<{
   by: string,
@@ -43,6 +44,7 @@ const props = defineProps<{
 }>();
 
 const hostname = useHostname(props.url);
+const anchorTarget = useAnchorTarget();
 </script>
 
 <style scoped>

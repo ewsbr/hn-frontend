@@ -4,12 +4,22 @@ function useSettingsCookie() {
     sameSite: 'lax',
     default() {
       return {
-        storySort: 'default'
+        storySort: 'default',
+        openInNewPage: false
       };
     },
   });
 }
 
+function useAnchorTarget(): string {
+  const cookie = useSettingsCookie()
+  if (cookie.value.openInNewPage) {
+    return '_blank';
+  }
+  return '_self';
+}
+
 export {
-  useSettingsCookie
+  useSettingsCookie,
+  useAnchorTarget
 }

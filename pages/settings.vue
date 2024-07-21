@@ -11,13 +11,24 @@
       <label for="dark-mode" class="text-gray-700 dark:text-gray-300">Color scheme:</label>
       <DarkModeToggle show-text></DarkModeToggle>
     </div>
+
+    <div class="flex items-center space-x-2">
+      <label for="new-page" class="text-gray-700 dark:text-gray-300">Open stores in a new page:</label>
+      <USelectMenu
+        v-model="settings.openInNewPage"
+        id="new-page"
+        size="lg"
+        :ui="{ rounded: 'rounded-full' }"
+        :options="[{ label: 'No', value: false }, { label: 'Yes', value: true }]"
+        value-attribute="value"
+      ></USelectMenu>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import StorySort from '~/components/stories/StorySort.vue';
 import { useSettingsCookie } from '~/composables/settings';
-import { storySortOptions } from '~/constants/story-sort-options';
 import DarkModeToggle from '~/components/DarkModeToggle.vue';
 
 useSeoMeta({
