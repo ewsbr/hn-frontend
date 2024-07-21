@@ -6,7 +6,7 @@
         '-left-6': index + 1 <= 9,
         '-left-8': index + 1 > 9
       }"
-    >{{ index + 1 }}.</span>
+    >{{ index }}.</span>
     <USkeleton class="h-[75px]" />
   </div>
 </template>
