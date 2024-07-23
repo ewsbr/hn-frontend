@@ -23,15 +23,16 @@
       </div>
     </div>
 
-    <section v-if="!isCollapsed" class="text-neutral-800 comment-content dark:text-neutral-200" v-html="text"></section>
+    <section v-if="!isCollapsed" class="text-neutral-800 comment-content dark:text-neutral-200" v-html="commentHtml"></section>
   </div>
 </template>
 
 <script setup lang="ts">
+import { useSettingsCookie } from '#imports';
 import StoryTime from '~/components/stories/StoryTime.vue';
 import UserWithTooltip from '~/components/users/UserWithTooltip.vue';
 
-defineProps<{
+const props = defineProps<{
   storyId: number,
   id: number,
   by: string,
@@ -46,6 +47,24 @@ const isCollapsed = defineModel<boolean>('collapsed', { default: false });
 function onClick() {
   isCollapsed.value = !isCollapsed.value;
 }
+
+const settings = useSettingsCookie();
+const anchorTarget = useAnchorTarget();
+
+const parser = import.meta.server ? null : new DOMParser();
+const commentHtml = computed(() => {
+  if (!settings.value.openInNewPage || parser === null) {
+    return props.text;
+  }
+
+  const html = parser.parseFromString(props.text, 'text/html');
+  html.querySelectorAll('a').forEach((el) => {
+    el.setAttribute('target', anchorTarget);
+    el.setAttribute('rel', 'nofollow');
+  });
+
+  return html.getElementsByTagName('body').item(0)?.innerHTML;
+})
 </script>
 
 <style scoped lang="scss">
@@ -54,6 +73,6 @@ function onClick() {
 }
 
 :deep(.comment-content a) {
-  @apply font-medium underline decoration-gray-700;
+  @apply font-medium underline decoration-gray-300 dark:decoration-gray-700;
 }
 </style>
