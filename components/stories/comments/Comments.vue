@@ -1,6 +1,7 @@
 <template>
-  <div v-for="comment in comments" :key="comment.id" class="flex flex-col gap-2">
+  <div v-for="comment in comments" :key="comment.id" class="flex flex-col gap-y-2">
     <CommentTree :story-id="storyId" :depth="depth" :comment="comment"></CommentTree>
+    <UDivider v-if="depth === 0" class="my-1"></UDivider>
   </div>
 </template>
 

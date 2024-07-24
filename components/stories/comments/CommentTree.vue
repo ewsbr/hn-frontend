@@ -10,9 +10,8 @@
     :descendants="comment.descendants"
   ></Comment>
 
-  <div v-if="!isCollapsed" class="ml-2">
+  <div v-if="!isCollapsed && hasKids" class="flex flex-col ml-2 gap-y-2">
     <Comments
-      v-if="comment.kids?.length > 0 && !isCollapsed"
       :story-id="storyId"
       :depth="depth + 1"
       :comments="comment.kids"
@@ -30,4 +29,5 @@ const props = defineProps<{
   depth: number,
 }>();
 const isCollapsed = ref(props.depth > 3);
+const hasKids = computed(() => props.comment.kids?.length > 0);
 </script>
