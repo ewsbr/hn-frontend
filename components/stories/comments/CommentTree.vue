@@ -10,7 +10,7 @@
     :descendants="comment.descendants"
   ></Comment>
 
-  <div v-if="!isCollapsed" class="ml-4">
+  <div v-if="!isCollapsed" class="ml-2">
     <Comments
       v-if="comment.kids?.length > 0 && !isCollapsed"
       :story-id="storyId"

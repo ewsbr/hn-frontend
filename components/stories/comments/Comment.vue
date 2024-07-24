@@ -11,7 +11,7 @@
       </DotSeparatedList>
 
       <div class="flex justify-center gap-x-1">
-        <span class="h-full font-semibold" :class="{ 'text-neutral-500 dark:text-neutral-400': !isCollapsed, 'text-primary': isCollapsed }">
+        <span v-if="descendants > 0" class="h-full font-semibold" :class="{ 'text-neutral-500 dark:text-neutral-400': !isCollapsed, 'text-primary': isCollapsed }">
           +{{ descendants }}
         </span>
         <UButton v-if="!isCollapsed" variant="ghost" class="p-0">
