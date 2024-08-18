@@ -21,3 +21,8 @@ a.animate-underline {
 code {
   white-space: normal;
 }
+
+p {
+  line-height: 1.75;
+  margin-top: 0.8rem;
+}

@@ -1,6 +1,6 @@
 <template>
   <div class="text-sm md:text-base">
-    <div class="flex h-8 items-center justify-between" @click="onClick">
+    <div class="mb-1 flex h-8 items-center justify-between" @click="onClick">
       <DotSeparatedList>
         <DotSeparatedListItem>
           <UserWithTooltip :username="by"></UserWithTooltip> ({{ karma }})
@@ -68,10 +68,6 @@ const commentHtml = computed(() => {
 </script>
 
 <style scoped lang="scss">
-:deep(p) {
-  margin-top: 0.5rem;
-}
-
 :deep(.comment-content a) {
   @apply font-medium underline decoration-gray-300 dark:decoration-gray-700;
 }

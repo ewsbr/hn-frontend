@@ -12,7 +12,7 @@
     ></Story>
 
     <section class="flex flex-col w-full items-center sm:px-0 gap-y-4 py-4 bg-neutral-50 dark:bg-neutral-900">
-      <div class="flex flex-wrap gap-x-4 gap-y-2 px-2 sm:px-0 w-full sm:w-3/4 max-w-[1200px] xl:1/2">
+      <div class="flex flex-wrap gap-x-4 gap-y-2 px-2 sm:px-0 w-full sm:w-3/4 max-w-[688px] xl:1/2">
         <div class="flex gap-2 items-start sm:items-center">
           <label for="comments-sort" class="font-semibold text-sm hidden sm:block">Sort by:</label>
           <StorySort id="comments-sort" v-model="commentsSort"></StorySort>
@@ -29,10 +29,10 @@
         </div>
       </div>
 
-      <div class="flex justify-center w-full sm:w-3/4 max-w-[1200px] overflow-hidden bg-neutral-50 dark:bg-neutral-900">
+      <div class="flex justify-center w-full sm:w-3/4 max-w-[688px] overflow-hidden bg-neutral-50 dark:bg-neutral-900">
         <div class="px-4 sm:px-0 w-full">
-          <Comments v-if="story.kids.length > 0 && !pending" :story-id="story.hnId" :depth="0" :comments="story.kids"></Comments>
-          <p v-else-if="pending" class="font-semibold">Loading...</p>
+          <Comments v-if="story.kids.length > 0 && status === 'success'" :story-id="story.hnId" :depth="0" :comments="story.kids"></Comments>
+          <p v-else-if="status === 'pending'" class="font-semibold">Loading...</p>
           <p v-else-if="route.query.search" class="font-semibold">No comments found matching "{{ route.query.search }}"</p>
           <p v-else class="font-semibold">This story has no comments</p>
         </div>
@@ -53,7 +53,7 @@ const router = useRouter();
 const settings = useSettingsCookie();
 const commentsSort = ref<string>(settings.value.storySort);
 
-const { data: story, error, refresh, pending } = await useAsyncData(() => {
+const { data: story, error, refresh, status } = await useAsyncData(() => {
   if (route.query.search) {
     return internalApiFetch<any>(`/stories/${route.params.id}`, {
       query: {
