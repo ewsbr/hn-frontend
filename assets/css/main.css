@@ -19,7 +19,7 @@ a.animate-underline {
 }
 
 code {
-  white-space: normal;
+  white-space: pre;
 }
 
 p {
