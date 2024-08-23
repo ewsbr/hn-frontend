@@ -6,7 +6,7 @@
           <a :href="url" :target="anchorTarget" class="mr-2">{{ title }}</a>
         </h1>
         <a href="#" class="block text-md mb-2 text-gray-500 align-middle'">({{ hostname }})</a>
-        <p v-if="text != null" v-html="text" class="mb-4"></p>
+        <article v-if="text != null" v-html="text" class="mb-4"></article>
 
         <DotSeparatedList hide-dots-on-mobile class="text-sm sm:text-base">
           <DotSeparatedListItem class="inline-flex items-center gap-1">
