@@ -1,7 +1,7 @@
 <template>
   <div>
     <NuxtLayout>
-      <NuxtPage/>
+      <NuxtPage :keepalive="{ include: ['ask', 'index', 'jobs', 'new', 'show'] }"/>
     </NuxtLayout>
 
     <ClientOnly>
