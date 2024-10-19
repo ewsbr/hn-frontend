@@ -38,7 +38,7 @@ const props = defineProps<{
   title: string,
   time: string,
   score: number,
-  url: string,
+  url?: string,
   descendants: number,
   text?: string,
 }>();
