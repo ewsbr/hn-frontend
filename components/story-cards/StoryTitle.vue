@@ -1,5 +1,5 @@
 <template>
-  <a class="block font-semibold font-body" :href="url" :target="anchorTarget">
+  <a class="block font-semibold font-body leading-5" :href="url" :target="anchorTarget">
     <span class="font-light sm:hidden">{{ index }}.</span> {{ title }}
     <span class="align-middle text-sm text-gray-500">({{ hostname }})</span>
   </a>
