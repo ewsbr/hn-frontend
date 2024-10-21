@@ -11,7 +11,7 @@
       :href="`/users/${username}`"
       class="text-anchor animate-underline"
       @mouseover.once="loadUser"
-      @click.prevent="onClick">
+      @click.stop.prevent="onClick">
       {{ username }}
     </a>
 

@@ -1,6 +1,6 @@
 <template>
   <div class="text-sm md:text-base">
-    <div class="mb-1 flex h-8 items-center justify-between" @click="onClick">
+    <div class="flex h-8 items-center justify-between" @click="onClick">
       <DotSeparatedList>
         <DotSeparatedListItem>
           <UserWithTooltip :username="by"></UserWithTooltip> ({{ karma }})
