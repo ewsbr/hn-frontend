@@ -9,11 +9,20 @@
     >
       <template v-if="showText">{{ isDark ? 'Light' : 'Dark' }}</template>
     </UButton>
+
+    <template #fallback>
+      <UButton
+        icon="i-mdi-white-balance-sunny"
+        variant="ghost"
+        class="text-slate-600 dark:text-sky-50"
+      >
+        Loading...
+      </UButton>
+    </template>
   </ClientOnly>
 </template>
 
 <script setup lang="ts">
-
 withDefaults(defineProps<{
   showText?: boolean;
 }>(), {

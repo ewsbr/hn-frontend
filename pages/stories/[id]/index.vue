@@ -53,6 +53,8 @@ const router = useRouter();
 const settings = useSettingsCookie();
 const commentsSort = ref<string>(settings.value.storySort);
 
+console.log('sort', settings.value);
+
 const { data: story, error, refresh, status } = await useAsyncData(() => {
   if (route.query.search) {
     return internalApiFetch<any>(`/stories/${route.params.id}`, {

@@ -21,6 +21,7 @@
         :ui="{ rounded: 'rounded-full' }"
         :options="[{ label: 'No', value: false }, { label: 'Yes', value: true }]"
         value-attribute="value"
+        placeholder="..."
       ></USelectMenu>
     </div>
   </div>
